@@ -28,10 +28,16 @@ let parisTime = moment().tz("Europe/Paris")
 
 parisDateElement.innerHTML = parisTime.format("MMMM Do YYYY")
 parisTimeElement.innerHTML = `${parisTime.format("hh:mm:ss")} <small>${parisTime.format("A")}</small>`
-}
+}}
+
+setInterval(updateTime, 1000)
 
 function updateCity (event) {
     let cityTimeZone = event.target.value
+
+    if (cityTimeZone === "current") {
+        cityTimeZone = moment.tz.guess()
+    }
     let cityName = cityTimeZone.replace("_", " ").split("/")[1]
     let cityTime = moment().tz(cityTimeZone)
     let citiesElement = document.querySelector("#cities")
@@ -52,7 +58,5 @@ let citiesSelectElement = document.querySelector("#city")
 citiesSelectElement.addEventListener("change", updateCity)
 
 
-}
 
-setInterval(updateTime, 1000)
 
